@@ -1,7 +1,7 @@
 // *************** 인덱스
 export default async function Page(){
   // 필수값 : TTBKey, QueryType 
-  const response = await fetch(`http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=${process.env.ALADIN_TTBKEY}&QueryType=Bestseller`);
+  const response = await fetch(`https://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=${process.env.ALADIN_TTBKEY}&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&Output=js`);
   const bestSeller = await response.json();
 
 
@@ -13,7 +13,7 @@ export default async function Page(){
       </section>
       <h3>다니엘이 추천하는 책</h3>
       <section>
-        {bestSeller}
+        {JSON.stringify(bestSeller)}
       </section>
     </div>
   )
