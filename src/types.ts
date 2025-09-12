@@ -5,6 +5,13 @@ export type BookListType =
   | "ItemEditorChoice"
   | "BlogBest";
 
+export type BookSearchType = 
+  |"Keyword" 
+  |"Title" 
+  |"Author"
+  |"Publisher";
+
+
 export interface BookItem {
   title: string,
   author: string,

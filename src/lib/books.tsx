@@ -1,9 +1,13 @@
-import { BookItem, BookListType } from "@/types";
+import { BookItem, BookListType, BookSearchType } from "@/types";
 
-
+//////////////////// 리퀘스트
 const API_KEY = process.env.ALADIN_TTBKEY!;
 const LIST_URL = "https://www.aladin.co.kr/ttb/api/ItemList.aspx";
 const SEARCH_URL = "https://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
+
+//////////////////// 리턴
+//리턴받은 데이터 가공하는 함수들!!!!여기!!!
+
 
 export async function getBooksList(type:BookListType,opts:{max?: number; start?:number;}={}):Promise<BookItem[]> {
   const {max = 10, start = 1} = opts;
@@ -23,7 +27,7 @@ export async function getBooksList(type:BookListType,opts:{max?: number; start?:
   return data.item ?? [];
 }
 
-export async function getBooksSearch(type:BookListType, opts:{max?:number;start?:number}={},input:string):Promise<BookItem[]> {
+export async function getBooksSearch(type:BookSearchType, opts:{max?:number;start?:number}={},input:string):Promise<BookItem[]> {
   const {max = 10, start = 1} = opts;
   const url = new URL(SEARCH_URL);
   url.searchParams.set('ttbkey',API_KEY);
@@ -33,7 +37,11 @@ export async function getBooksSearch(type:BookListType, opts:{max?:number;start?
   url.searchParams.set('SearchTarget','Book');
   url.searchParams.set('Output','JS');
   url.searchParams.set('Version',"20131101");
-  url.searchParams.set('Qeury',input);
+  url.searchParams.set('Query',input);
 
-  return []
+  const res = await fetch(url.toString(), {cache:"no-store"});
+  const data = await res.json();
+  if(data.errCode) throw new Error(data.errorMessage);
+
+  return data.item ?? [];
 } 
