@@ -1,4 +1,11 @@
-export interface BookListData {
+export type BookListType = 
+  | "Bestseller"
+  | "ItemNewAll"
+  | "ItemNewSpecial"
+  | "ItemEditorChoice"
+  | "BlogBest";
+
+export interface BookItem {
   title: string,
   author: string,
   description: string;
@@ -23,4 +30,9 @@ export interface BookListData {
   bestRank?: number;
   bestDuration?: string;
   subInfo?: Record<string, any>; 
+}
+
+export interface BookListResult {
+  total:number;
+  items: BookItem[];
 }
