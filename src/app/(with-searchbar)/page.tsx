@@ -1,3 +1,4 @@
+import BestSellerList from "@/components/BestSellerList";
 import SearchBar from "@/components/SearchBar";
 import { getBooksList } from "@/lib/books";
 
@@ -12,7 +13,7 @@ export default async function Page(){
       </section>
       <h3>다니엘이 추천하는 책</h3>
       <section>
-        {JSON.stringify(books)}
+        <BestSellerList books={books} />
 
       </section>
     </div>
