@@ -4,7 +4,7 @@ import { getBooksSearch } from "@/lib/books";
 import { BookItem } from "@/types";
 import { FormEvent, useState } from "react";
 
-export default function Searchbar() {
+export default function SearchBar() {
   const [search,setSearch] = useState<string>("");
   const [loading,setLoading] = useState<boolean>(false);
   const [books,setBooks] = useState<BookItem[]>([]);

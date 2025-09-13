@@ -1,4 +1,4 @@
-import Searchbar from "@/components/SearchBar";
+import SearchBar from "@/components/SearchBar";
 import { getBooksList } from "@/lib/books";
 
 // *************** 인덱스
@@ -8,7 +8,7 @@ export default async function Page(){
     <div>
       <h3>검색</h3>
       <section>
-        <Searchbar/>
+        <SearchBar/>
       </section>
       <h3>다니엘이 추천하는 책</h3>
       <section>
