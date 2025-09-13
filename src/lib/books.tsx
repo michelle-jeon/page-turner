@@ -1,12 +1,28 @@
-import { BookItem, BookListType, BookSearchType } from "@/types";
+import { AladinItem, BookItem, BookListType, BookSearchType } from "@/types";
 
 //////////////////// 리퀘스트
 const API_KEY = process.env.ALADIN_TTBKEY!;
 const LIST_URL = "https://www.aladin.co.kr/ttb/api/ItemList.aspx";
 const SEARCH_URL = "https://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
 
-//////////////////// 리턴
-//리턴받은 데이터 가공하는 함수들!!!!여기!!!
+//////////////////// 리턴 매퍼 (api 데이터 <-> 내부 타입 데이터)
+function normalizeString(s: string) {
+  return s.replace(/<[^>]+>/g, "");
+}
+
+export function mapAladinToBookItem(it: AladinItem):BookItem {
+  return {
+    title: normalizeString(it.title ?? ""),
+    author: it.author ?? "",
+    thumbnail: it.cover ?? "",
+    link: it.link ?? "",
+    pubDate: it.pubDate,
+    isbn: it.isbn,
+    isbn13: it.isbn13,
+    itemId: it.itemId,
+    publisher: it.publisher,
+  }
+}
 
 
 export async function getBooksList(type:BookListType,opts:{max?: number; start?:number;}={}):Promise<BookItem[]> {
@@ -24,7 +40,17 @@ export async function getBooksList(type:BookListType,opts:{max?: number; start?:
   const data = await res.json();
   if(data.errCode) throw new Error(data.errorMessage);
 
-  return data.item ?? [];
+  // 알라딘 api 응답 예시
+  // {
+  //   "version": "20131101",
+  //   "title": "베스트셀러",
+  //   "link": "https://...",
+  //   "item": [ { /* 책1 */ }, { /* 책2 */ } ],
+  //   "totalResults": 100
+  // }
+
+  // 리턴 전에 내부 타입 형태로 매핑
+  return (data.item ?? []).map(mapAladinToBookItem);
 }
 
 export async function getBooksSearch(type:BookSearchType, opts:{max?:number;start?:number}={},input:string):Promise<BookItem[]> {
@@ -43,5 +69,5 @@ export async function getBooksSearch(type:BookSearchType, opts:{max?:number;star
   const data = await res.json();
   if(data.errCode) throw new Error(data.errorMessage);
 
-  return data.item ?? [];
+  return (data.item ?? []).map(mapAladinToBookItem);
 } 
