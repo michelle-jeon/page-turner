@@ -1,3 +1,5 @@
+import SearchBar from "@/components/SearchBar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -6,6 +8,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
+        <SearchBar />
+      </header>
         {children}
       </body>
     </html>
