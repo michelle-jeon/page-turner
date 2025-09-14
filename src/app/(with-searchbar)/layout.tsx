@@ -9,8 +9,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
+        </header>
         <SearchBar />
-      </header>
         {children}
       </body>
     </html>
