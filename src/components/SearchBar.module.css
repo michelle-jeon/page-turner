@@ -1,0 +1,50 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 500px;
+  margin: 1rem auto;
+}
+
+/* 입력창 */
+.input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  border-color: #4f46e5; /* 보라색 포커스 */
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  outline: none;
+}
+
+/* 버튼 */
+.button {
+  padding: 0.5rem 1rem;
+  background-color: #4f46e5; /* 보라색 */
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #4338ca;
+}
+
+.button:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+}
+
+/* 로딩 상태일 때 커서 */
+.button:disabled.loading {
+  cursor: wait;
+}
