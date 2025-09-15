@@ -16,9 +16,11 @@ export default async function Page({
   console.log(detail);
 
   return(
-    <div>
-      <h3>도서 상세 페이지</h3>
-      <p>{detail.title}</p>
-    </div>
+    <main>
+      <h3>{detail.title}</h3>
+      <p>{detail.author}</p>
+      <p>{detail.publisher} · {detail.pubDate}</p>
+      <p>평점: {detail.rating?.score ?? 0} / 10</p>
+    </main>
   )
 }
