@@ -11,6 +11,10 @@ export type BookSearchType =
   |"Author"
   |"Publisher";
 
+export type BookIdType = 
+  |"ISBN"
+  |"ISBN13"
+  |"ItemId"
 
 // export interface BookItem {
 //   title: string,
@@ -68,4 +72,34 @@ export interface AladinItem {
 export interface BookListResult {
   total:number;
   items: BookItem[];
+}
+
+//내부 데이터
+export interface BookItemDetail {
+originalTitle:string;
+  subTitle?:string;
+  itemPage:number;
+  ratingInfo:{
+    ratingScore:number;
+    ratingCount: number;
+  }
+  authors:{
+    authorId:number;
+    authorName: string;
+  }
+}
+
+//알라딘 응답 데이터
+export interface AladinItemDetail {
+  originalTitle:string;
+  subTitle?:string;
+  itemPage:number;
+  ratingInfo:{
+    ratingScore:number;
+    ratingCount: number;
+  }
+  authors:{
+    authorId:number;
+    authorName: string;
+  }
 }

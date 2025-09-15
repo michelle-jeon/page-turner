@@ -1,5 +1,12 @@
-export default function Page(){
+import { BookItemDetail } from "@/types"
+
+type Props = {item:BookItemDetail}
+
+export default function Page({item}:Props){
   return(
-    <h1>도서 상세 페이지</h1>
+    <div>
+      <h1>도서 상세 페이지</h1>
+      <div>{item.originalTitle}</div>
+    </div>
   )
 }
