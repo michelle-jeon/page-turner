@@ -76,14 +76,17 @@ export async function getBooksSearch(type:BookSearchType, opts:{max?:number;star
 
 
 // #################### 도서 상세 페이지 정보 get
-export async function getBooksDetail(type:BookIdType = "ISBN13",ItemId:string):Promise<BookItemDetail[]> {
+export async function getBooksDetail(type:BookIdType = "ISBN13",ItemId:string):Promise<BookItemDetail> {
   const url = new URL (DETAIL_URL);
   url.searchParams.set('ttbkey',API_KEY);
   url.searchParams.set('ItemIdType',type);
   url.searchParams.set('ItemId',ItemId);
   url.searchParams.set('Output','JS');
   url.searchParams.set('Version',"20131101");
+  // 옵션
+  url.searchParams.set('OptResult','ratingInfo');
 
+  console.log(url);
   const res = await fetch(url.toString(), {cache:"no-store"});
   const data = await res.json();
   if(data.errCode) throw new Error(data.errorMessage);

@@ -76,8 +76,7 @@ export interface BookListResult {
 
 //내부 데이터
 export interface BookItemDetail {
-originalTitle:string;
-  subTitle?:string;
+title:string;
   itemPage:number;
   ratingInfo:{
     ratingScore:number;
@@ -91,8 +90,7 @@ originalTitle:string;
 
 //알라딘 응답 데이터
 export interface AladinItemDetail {
-  originalTitle:string;
-  subTitle?:string;
+  title:string;
   itemPage:number;
   ratingInfo:{
     ratingScore:number;

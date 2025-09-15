@@ -1,12 +1,24 @@
-import { BookItemDetail } from "@/types"
+import { getBooksDetail } from "@/lib/books";
+import { notFound } from "next/navigation";
 
-type Props = {item:BookItemDetail}
+type Props = {
+  params: {id: string};
+}
 
-export default function Page({item}:Props){
+export default async function Page({
+  params,
+}:{params:Promise<{id:string}>}){
+  const param = await params;
+  const id =  decodeURIComponent(param.id ?? "");
+  if(!id) notFound();
+  
+  const detail = await getBooksDetail("ISBN13",id);
+  console.log(detail);
+
   return(
     <div>
-      <h1>도서 상세 페이지</h1>
-      <div>{item.originalTitle}</div>
+      <h3>도서 상세 페이지</h3>
+      <p>{detail.title}</p>
     </div>
   )
 }
