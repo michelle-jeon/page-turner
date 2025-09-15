@@ -59,14 +59,41 @@ export interface BookItem {
 // 알라딘 응답
 export interface AladinItem {
   title?: string;
-  author?: string;
-  cover?: string;
   link?: string;
-  pubDate?: string; 
+  author?: string;
+  pubDate?: string;          // "YYYY-MM-DD"
+  description?: string;      // HTML 가능
   isbn?: string;
   isbn13?: string;
   itemId?: number;
+  priceSales?: number;
+  priceStandard?: number;
+  mallType?: string;
+  stockStatus?: string;      // "예약판매" 등
+  mileage?: number;
+  cover?: string;            // 이미지 URL
+  categoryId?: number;
+  categoryName?: string;     // "국내도서>...>..."
   publisher?: string;
+  salesPoint?: number;
+  adult?: boolean;
+  fixedPrice?: boolean;
+  customerReviewRank?: number; // (10점 만점)
+  subInfo?: AladinSubInfo;
+}
+
+export type AladinSubInfo = {
+  subTitle?: string;
+  originalTitle?: string;
+  itemPage?: number;
+  ratingInfo?: AladinRatingInfo;
+}
+
+export type AladinRatingInfo = {
+  ratingScore?: number;
+  ratingCount?: number;
+  commentReviewCount?:number;
+  myReviewCount?: number;
 }
 
 export interface BookListResult {
@@ -75,29 +102,37 @@ export interface BookListResult {
 }
 
 //내부 데이터
-export interface BookItemDetail {
-title:string;
-  itemPage:number;
-  ratingInfo:{
-    ratingScore:number;
-    ratingCount: number;
-  }
-  authors:{
-    authorId:number;
-    authorName: string;
-  }
-}
+// export interface BookItemDetail {
+// title:string;
+//   itemPage:number;
+//   ratingInfo:{
+//     ratingScore:number;
+//     ratingCount: number;
+//   }
+//   authors:{
+//     authorId:number;
+//     authorName: string;
+//   }
+// }
+// types/models.ts
+export type BookItemDetail = {
+  id: string;                    // isbn13 또는 itemId 문자열화
+  title: string;
+  author?: string;
+  publisher?: string;
+  pubDate?: string;              // "YYYY-MM-DD" 그대로 보관
+  description?: string;          // HTML 제거/정제본(선호)
+  isbn13?: string;
+  itemId?: number;
+  price?: { sales?: number; list?: number; fixedPrice?: boolean };
+  cover?: string;
+  category?: { id?: number; path?: string[] }; // "A>B>C" → ["A","B","C"]
+  stockStatus?: string;
+  adult?: boolean;
+  salesPoint?: number;
+  rating?: { score?: number; count?: number; comments?: number; myReviews?: number };
+  pages?: number;
+  originalTitle?: string;
+  subTitle?: string;
+};
 
-//알라딘 응답 데이터
-export interface AladinItemDetail {
-  title:string;
-  itemPage:number;
-  ratingInfo:{
-    ratingScore:number;
-    ratingCount: number;
-  }
-  authors:{
-    authorId:number;
-    authorName: string;
-  }
-}

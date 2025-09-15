@@ -1,5 +1,4 @@
 import BestSellerList from "@/components/BestSellerList";
-import SearchBar from "@/components/SearchBar";
 import { getBooksList } from "@/lib/books";
 
 // *************** 인덱스

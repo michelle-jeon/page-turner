@@ -24,6 +24,42 @@ export function mapAladinToBookItem(it: AladinItem):BookItem {
   }
 }
 
+const stripTags = (s?: string) => (s ?? "").replace(/<[^>]*>/g, "").trim();
+
+export function mapItemLookupToDetail(raw: AladinItem): BookItemDetail {
+  
+  return {
+    id: raw.isbn13 ?? String(raw.itemId ?? ""),
+    title: stripTags(raw.title),
+    author: raw.author,
+    publisher: raw.publisher,
+    pubDate: raw.pubDate,
+    description: stripTags(raw.description),
+    isbn13: raw.isbn13,
+    itemId: raw.itemId,
+    price: {
+      sales: raw.priceSales,
+      list: raw.priceStandard,
+      fixedPrice: raw.fixedPrice,
+    },
+    cover: raw.cover,
+    category: { id: raw.categoryId },
+    stockStatus: raw.stockStatus,
+    adult: raw.adult,
+    salesPoint: raw.salesPoint,
+    rating: {
+      score: raw.subInfo?.ratingInfo?.ratingScore ?? raw.customerReviewRank,
+      count: raw.subInfo?.ratingInfo?.ratingCount,
+      comments: raw.subInfo?.ratingInfo?.commentReviewCount,
+      myReviews: raw.subInfo?.ratingInfo?.myReviewCount,
+    },
+    pages: raw.subInfo?.itemPage,
+    originalTitle: raw.subInfo?.originalTitle,
+    subTitle: raw.subInfo?.subTitle,
+  };
+}
+
+
 // #################### 인덱스 화면 리스트 get
 export async function getBooksList(type:BookListType,opts:{max?: number; start?:number;}={}):Promise<BookItem[]> {
   const {max = 10, start = 1} = opts;
@@ -91,5 +127,8 @@ export async function getBooksDetail(type:BookIdType = "ISBN13",ItemId:string):P
   const data = await res.json();
   if(data.errCode) throw new Error(data.errorMessage);
 
-  return (data.item ?? {})
+  const raw = (data.item ?? [])[0];
+  if (!raw) throw new Error("상세 항목을 찾을 수 없습니다.");
+
+  return mapItemLookupToDetail(raw);
 }
