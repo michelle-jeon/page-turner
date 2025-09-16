@@ -86,7 +86,9 @@ export async function getBooksList(type:BookListType,opts:{max?: number; start?:
   // }
 
   // 리턴 전에 내부 타입 형태로 매핑
-  return (data.item ?? []).map(mapAladinToBookItem);
+  const total = data.totalResults  // 이거 리턴에 타입이랑 추가해야함
+  const itemRes = (data.item ?? []).map(mapAladinToBookItem)
+  return  itemRes;
 }
 
 
