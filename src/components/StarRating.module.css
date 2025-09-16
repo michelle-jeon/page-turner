@@ -1,0 +1,3 @@
+.wrap { position: relative; display: inline-block; font-size: 18px; line-height: 1; }
+.base { color: #e5e7eb; }
+.fill { color: #f59e0b; position: absolute; left: 0; top: 0; white-space: nowrap; overflow: hidden; }

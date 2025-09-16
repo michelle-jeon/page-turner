@@ -26,6 +26,15 @@
 .subtitle { margin-top: 6px; color: #6b7280; }
 .original { color:#9ca3af; }
 
+.titleBox {
+  display:flex;
+  flex:1;
+}
+
+.coverBox {
+  padding-right:20px;
+}
+
 
 .byline { margin-top: 12px; color: #4b5563; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 .author { font-weight: 600; }
@@ -44,11 +53,12 @@
 .fixed { color:#6b7280; font-size: 12px; border: 1px solid #e5e7eb; border-radius: 999px; padding: 2px 8px; }
 
 
-.ctaRow { display:flex; gap: 10px; margin-top: 16px; }
+/* 서버 파일에 버튼 넣어서 오류나서 떼버림 */
+/* .ctaRow { display:flex; gap: 10px; margin-top: 16px; }
 .btn { padding: 10px 14px; border-radius: 10px; font-weight: 700; border: 1px solid transparent; cursor: pointer; }
 .primary { background:#111827; color:#fff; }
 .secondary { background:#f3f4f6; }
-.linkBtn { background: transparent; border: none; color:#2563eb; cursor: pointer; font-weight: 700; }
+.linkBtn { background: transparent; border: none; color:#2563eb; cursor: pointer; font-weight: 700; } */
 
 
 /* 섹션 */
