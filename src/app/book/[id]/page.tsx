@@ -16,11 +16,13 @@ export default async function Page({
   console.log(detail);
 
   return(
-    <main>
+    <section>
+      <div className=""></div>
       <h3>{detail.title}</h3>
       <p>{detail.author}</p>
       <p>{detail.publisher} · {detail.pubDate}</p>
       <p>평점: {detail.rating?.score ?? 0} / 10</p>
-    </main>
+
+    </section>
   )
 }

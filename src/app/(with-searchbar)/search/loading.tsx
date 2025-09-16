@@ -1,12 +1,12 @@
-import styles from "./loading.module.css"
+import s from "./loading.module.css"
 
 export default function loading() {
   return(
-    <main className={styles.container}>
-      <div className={styles.titleSkeleton}>
-        <div className={styles.grid}>
+    <main className={s.container}>
+      <div className={s.titleSkeleton}>
+        <div className={s.grid}>
           {Array.from({length:6}).map((_, i)=>(
-            <div key={i} className={styles.cardSkeleton}></div>
+            <div key={i} className={s.cardSkeleton}></div>
           ))}
         </div>
       </div>

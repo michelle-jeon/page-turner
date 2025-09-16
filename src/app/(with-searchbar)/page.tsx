@@ -5,7 +5,7 @@ import { getBooksList } from "@/lib/books";
 export default async function Page(){
   const books = await getBooksList("BestSeller",{max:10});
   return(
-    <div>
+    <div style={{padding:'4px 36px'}}>
       <h3>다니엘이 추천하는 책</h3>
       <section>
         <BestSellerList books={books} />

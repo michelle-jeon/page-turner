@@ -1,23 +1,23 @@
 import { BookItem } from "@/types";
-import styles from "./BestSellerList.module.css"
+import s from "./BestSellerList.module.css"
 import Link from "next/link";
 
 type Props = {books:BookItem[]};
 
 export default function BestSellerList({books}:Props){
   return(
-    <ul className={styles.grid}>
+    <ul className={s.grid}>
       {books.map((b)=>(
-        <li key={b.itemId} className={styles.card}>
+        <li key={b.itemId} className={s.card}>
           <Link href={`/book/${b.isbn13}`}>
-            {b.thumbnail && <img className={styles.thumb} src={b.thumbnail} alt={b.title} />}
-            <div className={styles.meta}>
-              <strong className={styles.title}>{b.title}</strong>
-              <span className={styles.author}>{b.author}</span>
-              <span className={styles.pub}>
+            {b.thumbnail && <img className={s.thumb} src={b.thumbnail} alt={b.title} />}
+            <div className={s.meta}>
+              <strong className={s.title}>{b.title}</strong>
+              <span className={s.author}>{b.author}</span>
+              <span className={s.pub}>
                 {b.publisher} · {b.pubDate}
               </span>
-              <span className={styles.price}>
+              <span className={s.price}>
                 
               </span>
             </div>
