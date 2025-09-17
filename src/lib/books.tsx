@@ -1,4 +1,4 @@
-import { AladinItem, BookIdType, BookItem, BookItemDetail, BookListType, BookSearchType } from "@/types";
+import { AladinItem, BookIdType, BookItem, BookItemDetail, BookListType, BookSearchType, PagedResult } from "@/types";
 
 //////////////////// 리퀘스트
 const API_KEY = process.env.ALADIN_TTBKEY!;
@@ -61,12 +61,13 @@ export function mapItemLookupToDetail(raw: AladinItem): BookItemDetail {
 
 
 // #################### 인덱스 화면 리스트 get
-export async function getBooksList(type:BookListType,opts:{max?: number; start?:number;}={}):Promise<BookItem[]> {
-  const {max = 10, start = 1} = opts;
+export async function getBooksList(type:BookListType,opts:{max?: number; start?:number;}={}):Promise<PagedResult<BookItem>> {
+  const size = opts.max??10;
+  const start = opts.start??1;
   const url = new URL(LIST_URL);
   url.searchParams.set('ttbkey',API_KEY);
   url.searchParams.set('QueryType',type);
-  url.searchParams.set('MaxResults', String(max));
+  url.searchParams.set('MaxResults', String(size));
   url.searchParams.set('start',String(start));
   url.searchParams.set('SearchTarget','Book');
   url.searchParams.set('Output','JS');
@@ -86,9 +87,22 @@ export async function getBooksList(type:BookListType,opts:{max?: number; start?:
   // }
 
   // 리턴 전에 내부 타입 형태로 매핑
-  const total = data.totalResults  // 이거 리턴에 타입이랑 추가해야함
-  const itemRes = (data.item ?? []).map(mapAladinToBookItem)
-  return  itemRes;
+  const total = Number(data.totalResults ?? 0);
+  const page = Math.max(1, Math.ceil(start/size));
+  const lastPage = total >0 ? Math.ceil(total/size):1;
+  const items = (data.item ?? []).map(mapAladinToBookItem);
+  // const itemRes = (data.item ?? []).map(mapAladinToBookItem)
+  // return  itemRes;
+    return {
+    items,
+    total,
+    page,
+    size,
+    start,
+    lastPage,
+    hasPrev: page > 1,
+    hasNext: page < lastPage,
+  };
 }
 
 

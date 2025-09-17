@@ -16,46 +16,6 @@ export type BookIdType =
   |"ISBN13"
   |"ItemId"
 
-// export interface BookItem {
-//   title: string,
-//   author: string,
-//   description: string;
-//   isbn: string,
-//   isbn13:string,
-//   itemId: number,
-//   link: string,
-//   pubData: string,
-//   priceSales: number,
-//   priceStandard: number;
-//   mallType: string;
-//   stockStatus: string;
-//   mileage: number;
-//   cover: string;
-//   categoryId: number;
-//   categoryName: string;
-//   publisher: string;
-//   salesPoint: number;
-//   adult: boolean;
-//   fixedPrice: boolean;
-//   customerReviewRank: number;
-//   bestRank?: number;
-//   bestDuration?: string;
-//   subInfo?: Record<string, any>; 
-// }
-
-// 내부 타입
-export interface BookItem {
-  title: string;
-  author: string;
-  thumbnail: string;
-  link: string;
-  pubDate?: string;
-  isbn?: string;
-  isbn13?: string;
-  itemId?: number;
-  publisher?: string;
-}
-
 // 알라딘 응답
 export interface AladinItem {
   title?: string;
@@ -101,6 +61,33 @@ export interface BookListResult {
   items: BookItem[];
 }
 
+// 리스트 조회 페이지네이션 타입
+export interface PagedResult<T>{
+  items:T[];
+  total: number;
+  page:number;
+  size:number;
+  start:number;
+  lastPage: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+}
+
+
+// 리스트 조회 내부 아이템 타입
+export interface BookItem {
+  title: string;
+  author: string;
+  thumbnail: string;
+  link: string;
+  pubDate?: string;
+  isbn?: string;
+  isbn13?: string;
+  itemId?: number;
+  publisher?: string;
+}
+
+
 //내부 데이터
 // export interface BookItemDetail {
 // title:string;
@@ -114,14 +101,15 @@ export interface BookListResult {
 //     authorName: string;
 //   }
 // }
-// types/models.ts
+
+// 상세 조회 내부 타입
 export type BookItemDetail = {
-  id: string;                    // isbn13 또는 itemId 문자열화
+  id: string;  
   title: string;
   author?: string;
   publisher?: string;
-  pubDate?: string;              // "YYYY-MM-DD" 그대로 보관
-  description?: string;          // HTML 제거/정제본(선호)
+  pubDate?: string; 
+  description?: string;
   isbn13?: string;
   itemId?: number;
   price?: { sales?: number; list?: number; fixedPrice?: boolean };
